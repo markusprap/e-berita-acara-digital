@@ -284,23 +284,23 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
             <div className="w-40 h-24 flex items-end">
               <div className="w-full border-t border-black pb-1"></div>
             </div>
-            <span className="mt-1 uppercase">(EDP MGR)</span>
-          </div>
-
-          <div className="hidden md:flex flex-col items-center">
-            <span className="mb-2">Diketahui</span>
-            <div className="w-40 h-24 flex items-end">
-              <div className="w-full border-t border-black pb-1"></div>
-            </div>
-            <span className="mt-1 uppercase">(Office Manager)</span>
-          </div>
-
-          <div className="hidden md:flex flex-col items-center">
-            <span className="mb-2">Diketahui</span>
-            <div className="w-40 h-24 flex items-end">
-              <div className="w-full border-t border-black pb-1"></div>
-            </div>
             <span className="mt-1 uppercase">(DBM ADM / BM)</span>
+          </div>
+
+          <div className="hidden md:flex flex-col items-center">
+            <span className="mb-2">Diketahui</span>
+            <div className="w-40 h-24 flex items-end">
+              <div className="w-full border-t border-black pb-1"></div>
+            </div>
+            <span className="mt-1 uppercase">(EDP MANAGER)</span>
+          </div>
+
+          <div className="hidden md:flex flex-col items-center">
+            <span className="mb-2">Diketahui</span>
+            <div className="w-40 h-24 flex items-end">
+              <div className="w-full border-t border-black pb-1"></div>
+            </div>
+            <span className="mt-1 uppercase">(OFFICE MANAGER)</span>
           </div>
         </div>
       </div>
