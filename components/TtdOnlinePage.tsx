@@ -80,39 +80,21 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             const signatureImageBytes = await fetch(signatureDataUrl).then(res => res.arrayBuffer());
             const signatureImage = await pdfDoc.embedPng(signatureImageBytes);
 
-            // Calculate positions based on page size
-            // Grid: 3 columns, 2 rows at bottom of page
-            // Column widths: each ~1/3 of page width
-            const colWidth = pageWidth / 3;
+            // Signature dimensions
             const sigWidth = 100;
             const sigHeight = 45;
 
-            // Row 1 (AS, AM) - higher up, Row 2 (DBM, EDP, OM) - lower
-            // Position from bottom of page - adjust these based on actual PDF layout
-            // BA PDF signature area is roughly in middle-lower portion
-            const row1Y = 280;  // Row with Area Supervisor, Area Manager
-            const row2Y = 180;  // Row with DBM, EDP, Office Manager
-
-            // Column X positions (centered in each column)
-            const col1X = (colWidth - sigWidth) / 2 + 10;
-            const col2X = colWidth + (colWidth - sigWidth) / 2;
-            const col3X = colWidth * 2 + (colWidth - sigWidth) / 2 - 10;
-
-            // Map jabatan to position
+            // Exact coordinates from PDF Coordinate Finder tool
+            // These are the center points of each signature box
             const jabatanPositions: Record<JabatanType, { x: number; y: number }> = {
-                'Area Supervisor': { x: col2X, y: row1Y },
-                'Area Manager': { x: col3X, y: row1Y },
-                'DBM ADM / BM': { x: col1X, y: row2Y },
-                'EDP Manager': { x: col2X, y: row2Y },
-                'Office Manager': { x: col3X, y: row2Y },
+                'Area Supervisor': { x: 249, y: 321 },
+                'Area Manager': { x: 431, y: 321 },
+                'DBM ADM / BM': { x: 68, y: 171 },
+                'EDP Manager': { x: 249, y: 173 },
+                'Office Manager': { x: 429, y: 173 },
             };
 
             const position = jabatanPositions[user.jabatan];
-
-            // Debug logging
-            console.log('PDF Page size:', { pageWidth, pageHeight });
-            console.log('Signature position for', user.jabatan, ':', position);
-            console.log('Signature size:', { sigWidth, sigHeight });
 
             // Draw the signature on the PDF
             lastPage.drawImage(signatureImage, {
