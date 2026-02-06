@@ -179,7 +179,27 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
           </div>
         </div>
 
-        <p className="mb-1 font-semibold italic">Dengan kronologi sbb :</p>
+        <div className="flex items-center gap-2 mb-1">
+          <p className="font-semibold italic">Dengan kronologi sbb :</p>
+          <div className="relative group">
+            <span className="cursor-help text-blue-500 hover:text-blue-700 transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+              </svg>
+            </span>
+            <div className="absolute left-0 bottom-full mb-2 hidden group-hover:block w-64 p-3 bg-gray-800 text-white text-xs rounded-lg shadow-lg z-50">
+              <p className="font-bold mb-1">⚠️ Penting!</p>
+              <p>Tuliskan kronologi dengan <strong>sangat detail dan jelas</strong>, termasuk:</p>
+              <ul className="list-disc list-inside mt-1 space-y-0.5">
+                <li>Waktu kejadian</li>
+                <li>Urutan peristiwa</li>
+                <li>Siapa yang terlibat</li>
+                <li>Tindakan yang diambil</li>
+              </ul>
+              <div className="absolute left-4 top-full w-0 h-0 border-l-8 border-r-8 border-t-8 border-l-transparent border-r-transparent border-t-gray-800"></div>
+            </div>
+          </div>
+        </div>
         <textarea
           name="kronologi"
           value={data.kronologi}
