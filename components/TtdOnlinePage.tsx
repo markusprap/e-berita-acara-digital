@@ -71,10 +71,10 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             const pdfBytes = await pdfFile.arrayBuffer();
             const pdfDoc = await PDFDocument.load(pdfBytes);
 
-            // Get the first page (or last page where signatures usually are)
+            // Get the FIRST page where signatures are located in BA PDF
             const pages = pdfDoc.getPages();
-            const lastPage = pages[pages.length - 1];
-            const { width: pageWidth, height: pageHeight } = lastPage.getSize();
+            const firstPage = pages[0];  // Signature grid is on page 1
+            const { width: pageWidth, height: pageHeight } = firstPage.getSize();
 
             // Embed the signature image
             const signatureImageBytes = await fetch(signatureDataUrl).then(res => res.arrayBuffer());
@@ -97,7 +97,7 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             const position = jabatanPositions[user.jabatan];
 
             // Draw the signature on the PDF
-            lastPage.drawImage(signatureImage, {
+            firstPage.drawImage(signatureImage, {
                 x: position.x,
                 y: position.y,
                 width: sigWidth,
@@ -106,7 +106,7 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
 
             // Draw the name below the signature (centered)
             const nameText = `(${user.nama})`;
-            lastPage.drawText(nameText, {
+            firstPage.drawText(nameText, {
                 x: position.x + 10,
                 y: position.y - 12,
                 size: 8,
