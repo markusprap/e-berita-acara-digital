@@ -129,31 +129,82 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
     };
 
     const downloadPdf = () => {
-        if (signedPdfUrl) {
+        if (signedPdfUrl && pdfFile) {
+            // Extract info from original filename if possible
+            // Expected format: Berita_Acara_KODTOKO.pdf or similar
+            const originalName = pdfFile.name.replace('.pdf', '');
+
+            // Try to extract kode toko from filename (expect format like "Berita_Acara_T28W" or just take what we have)
+            const kodeTokoMatch = originalName.match(/[A-Z]\d{2}[A-Z]/);
+            const kodeToko = kodeTokoMatch ? kodeTokoMatch[0] : 'TOKO';
+
+            // Get current date in DDMMYY format
+            const now = new Date();
+            const dd = String(now.getDate()).padStart(2, '0');
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const yy = String(now.getFullYear()).slice(-2);
+            const tanggal = `${dd}${mm}${yy}`;
+
+            // Map jabatan to short code
+            const jabatanCodes: Record<string, string> = {
+                'Area Supervisor': 'AS',
+                'Area Manager': 'AM',
+                'DBM ADM / BM': 'DBM',
+                'EDP Manager': 'EDP',
+                'Office Manager': 'OM',
+            };
+            const jabatanCode = jabatanCodes[user.jabatan] || user.jabatan;
+
+            // Create filename: BA VARIANCE (KODE_TOKO) (DDMMYY) TTD [JABATAN]
+            const filename = `BA VARIANCE ${kodeToko} ${tanggal} TTD ${jabatanCode}.pdf`;
+
             const link = document.createElement('a');
             link.href = signedPdfUrl;
-            link.download = `BA_Signed_${user.jabatan.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.pdf`;
+            link.download = filename;
             link.click();
         }
     };
 
     const shareViaWhatsApp = () => {
-        if (signedPdfUrl) {
+        if (signedPdfUrl && pdfFile) {
+            // Extract kode toko from filename
+            const originalName = pdfFile.name.replace('.pdf', '');
+            const kodeTokoMatch = originalName.match(/[A-Z]\d{2}[A-Z]/);
+            const kodeToko = kodeTokoMatch ? kodeTokoMatch[0] : 'TOKO';
+
+            // Get current date in DDMMYY format
+            const now = new Date();
+            const dd = String(now.getDate()).padStart(2, '0');
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const yy = String(now.getFullYear()).slice(-2);
+            const tanggal = `${dd}${mm}${yy}`;
+
+            // Map jabatan to short code
+            const jabatanCodes: Record<string, string> = {
+                'Area Supervisor': 'AS',
+                'Area Manager': 'AM',
+                'DBM ADM / BM': 'DBM',
+                'EDP Manager': 'EDP',
+                'Office Manager': 'OM',
+            };
+            const jabatanCode = jabatanCodes[user.jabatan] || user.jabatan;
+            const filename = `BA VARIANCE ${kodeToko} ${tanggal} TTD ${jabatanCode}.pdf`;
+
             // For mobile, we can use Web Share API if available
             if (navigator.share) {
                 fetch(signedPdfUrl)
                     .then(res => res.blob())
                     .then(blob => {
-                        const file = new File([blob], `BA_Signed_${user.jabatan.replace(/\s+/g, '_')}.pdf`, { type: 'application/pdf' });
+                        const file = new File([blob], filename, { type: 'application/pdf' });
                         navigator.share({
-                            title: 'Berita Acara - Signed',
+                            title: `BA VARIANCE ${kodeToko}`,
                             text: `BA sudah ditandatangani oleh ${user.nama} (${user.jabatan})`,
                             files: [file],
                         }).catch(console.error);
                     });
             } else {
                 // Fallback: just open WhatsApp with text
-                const text = encodeURIComponent(`BA sudah ditandatangani oleh ${user.nama} (${user.jabatan}). Silakan download dari link yang dikirim.`);
+                const text = encodeURIComponent(`BA VARIANCE ${kodeToko} sudah ditandatangani oleh ${user.nama} (${user.jabatan}). Silakan download dari link yang dikirim.`);
                 window.open(`https://wa.me/?text=${text}`, '_blank');
             }
         }
