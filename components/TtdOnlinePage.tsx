@@ -10,12 +10,16 @@ interface Props {
 }
 
 // Signature position mapping (x, y from bottom-left of page)
+// A4 PDF size: 595 x 842 points
+// Grid layout: 3 columns x 2 rows
+// Row 1 (y ~170): Tim Toko | Area Supervisor | Area Manager
+// Row 2 (y ~80): DBM ADM/BM | EDP Manager | Office Manager
 const signaturePositions: Record<JabatanType, { x: number; y: number; width: number; height: number }> = {
-    'Area Supervisor': { x: 220, y: 85, width: 100, height: 50 },
-    'Area Manager': { x: 380, y: 85, width: 100, height: 50 },
-    'DBM ADM / BM': { x: 60, y: 20, width: 100, height: 50 },
-    'EDP Manager': { x: 220, y: 20, width: 100, height: 50 },
-    'Office Manager': { x: 380, y: 20, width: 100, height: 50 },
+    'Area Supervisor': { x: 235, y: 165, width: 120, height: 60 },
+    'Area Manager': { x: 410, y: 165, width: 120, height: 60 },
+    'DBM ADM / BM': { x: 60, y: 75, width: 120, height: 60 },
+    'EDP Manager': { x: 235, y: 75, width: 120, height: 60 },
+    'Office Manager': { x: 410, y: 75, width: 120, height: 60 },
 };
 
 const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
@@ -70,25 +74,52 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             // Get the first page (or last page where signatures usually are)
             const pages = pdfDoc.getPages();
             const lastPage = pages[pages.length - 1];
+            const { width: pageWidth, height: pageHeight } = lastPage.getSize();
 
             // Embed the signature image
             const signatureImageBytes = await fetch(signatureDataUrl).then(res => res.arrayBuffer());
             const signatureImage = await pdfDoc.embedPng(signatureImageBytes);
 
-            // Get position for this jabatan
-            const position = signaturePositions[user.jabatan];
+            // Calculate positions based on page size
+            // Grid: 3 columns, 2 rows at bottom of page
+            // Column widths: each ~1/3 of page width
+            const colWidth = pageWidth / 3;
+            const sigWidth = colWidth * 0.7;
+            const sigHeight = 50;
+
+            // Row 1 (AS, AM) - higher up, Row 2 (DBM, EDP, OM) - lower
+            // Position from bottom: Row1 ~150pts, Row2 ~70pts
+            const row1Y = 130;
+            const row2Y = 50;
+
+            // Column X positions (centered in each column)
+            const col1X = (colWidth - sigWidth) / 2;
+            const col2X = colWidth + (colWidth - sigWidth) / 2;
+            const col3X = colWidth * 2 + (colWidth - sigWidth) / 2;
+
+            // Map jabatan to position
+            const jabatanPositions: Record<JabatanType, { x: number; y: number }> = {
+                'Area Supervisor': { x: col2X, y: row1Y },
+                'Area Manager': { x: col3X, y: row1Y },
+                'DBM ADM / BM': { x: col1X, y: row2Y },
+                'EDP Manager': { x: col2X, y: row2Y },
+                'Office Manager': { x: col3X, y: row2Y },
+            };
+
+            const position = jabatanPositions[user.jabatan];
 
             // Draw the signature on the PDF
             lastPage.drawImage(signatureImage, {
                 x: position.x,
                 y: position.y,
-                width: position.width,
-                height: position.height,
+                width: sigWidth,
+                height: sigHeight,
             });
 
-            // Draw the name below the signature
-            lastPage.drawText(`(${user.nama})`, {
-                x: position.x,
+            // Draw the name below the signature (centered)
+            const nameText = `(${user.nama})`;
+            lastPage.drawText(nameText, {
+                x: position.x + 10,
                 y: position.y - 12,
                 size: 8,
                 color: rgb(0, 0, 0),
