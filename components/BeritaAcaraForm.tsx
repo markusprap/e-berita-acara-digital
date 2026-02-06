@@ -200,7 +200,7 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
             name="lokasi"
             value={data.lokasi}
             onChange={onChange}
-            className="w-24 outline-none border-none bg-transparent text-right font-medium"
+            className="w-32 outline-none border-none bg-transparent text-right font-medium pb-1"
             placeholder="Lokasi"
           />
           <span className="font-medium">,</span>
