@@ -104,14 +104,17 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
                 height: sigHeight,
             });
 
-            // Draw the name below the signature (centered)
-            const nameText = `(${user.nama})`;
-            firstPage.drawText(nameText, {
-                x: position.x + 10,
-                y: position.y - 12,
-                size: 8,
-                color: rgb(0, 0, 0),
-            });
+            // Draw the name below the signature ONLY for AS and AM
+            // (OM, EDP, DBM already have names in the original BA PDF template)
+            if (user.jabatan === 'Area Supervisor' || user.jabatan === 'Area Manager') {
+                const nameText = `(${user.nama})`;
+                firstPage.drawText(nameText, {
+                    x: position.x + 10,
+                    y: position.y - 12,
+                    size: 8,
+                    color: rgb(0, 0, 0),
+                });
+            }
 
             // Save the modified PDF
             const modifiedPdfBytes = await pdfDoc.save();
