@@ -246,7 +246,7 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
           <div className="flex flex-col items-center">
             <span className="mb-2">Dibuat</span>
             <div
-              className="relative w-40 h-24 border border-black flex items-center justify-center bg-white shadow-inner cursor-pointer hover:bg-gray-50 transition-colors signature-box"
+              className="relative w-40 h-24 flex items-center justify-center bg-white cursor-pointer hover:bg-gray-50 transition-colors signature-box"
               onClick={openSignatureModal}
             >
               {signatureDataUrl ? (
