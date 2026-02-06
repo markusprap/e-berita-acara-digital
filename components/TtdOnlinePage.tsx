@@ -84,18 +84,19 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             // Grid: 3 columns, 2 rows at bottom of page
             // Column widths: each ~1/3 of page width
             const colWidth = pageWidth / 3;
-            const sigWidth = colWidth * 0.7;
-            const sigHeight = 50;
+            const sigWidth = 100;
+            const sigHeight = 45;
 
             // Row 1 (AS, AM) - higher up, Row 2 (DBM, EDP, OM) - lower
-            // Position from bottom: Row1 ~150pts, Row2 ~70pts
-            const row1Y = 130;
-            const row2Y = 50;
+            // Position from bottom of page - adjust these based on actual PDF layout
+            // BA PDF signature area is roughly in middle-lower portion
+            const row1Y = 280;  // Row with Area Supervisor, Area Manager
+            const row2Y = 180;  // Row with DBM, EDP, Office Manager
 
             // Column X positions (centered in each column)
-            const col1X = (colWidth - sigWidth) / 2;
+            const col1X = (colWidth - sigWidth) / 2 + 10;
             const col2X = colWidth + (colWidth - sigWidth) / 2;
-            const col3X = colWidth * 2 + (colWidth - sigWidth) / 2;
+            const col3X = colWidth * 2 + (colWidth - sigWidth) / 2 - 10;
 
             // Map jabatan to position
             const jabatanPositions: Record<JabatanType, { x: number; y: number }> = {
@@ -107,6 +108,11 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             };
 
             const position = jabatanPositions[user.jabatan];
+
+            // Debug logging
+            console.log('PDF Page size:', { pageWidth, pageHeight });
+            console.log('Signature position for', user.jabatan, ':', position);
+            console.log('Signature size:', { sigWidth, sigHeight });
 
             // Draw the signature on the PDF
             lastPage.drawImage(signatureImage, {
