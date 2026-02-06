@@ -234,7 +234,7 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
               onChange={onChange}
               className="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10"
             />
-            <span className="inline-block px-2 min-w-[100px] font-medium leading-loose">
+            <span className="inline-block px-2 min-w-[100px] font-medium leading-loose -mt-1">
               {formatDateDisplay(data.tanggalDibuat) || 'dd-mm-yyyy'}
             </span>
           </div>
