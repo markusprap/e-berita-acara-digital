@@ -9,19 +9,6 @@ interface Props {
     onBack: () => void;
 }
 
-// Signature position mapping (x, y from bottom-left of page)
-// A4 PDF size: 595 x 842 points
-// Grid layout: 3 columns x 2 rows
-// Row 1 (y ~170): Tim Toko | Area Supervisor | Area Manager
-// Row 2 (y ~80): DBM ADM/BM | EDP Manager | Office Manager
-const signaturePositions: Record<JabatanType, { x: number; y: number; width: number; height: number }> = {
-    'Area Supervisor': { x: 235, y: 165, width: 120, height: 60 },
-    'Area Manager': { x: 410, y: 165, width: 120, height: 60 },
-    'DBM ADM / BM': { x: 60, y: 75, width: 120, height: 60 },
-    'EDP Manager': { x: 235, y: 75, width: 120, height: 60 },
-    'Office Manager': { x: 410, y: 75, width: 120, height: 60 },
-};
-
 const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
     const [pdfFile, setPdfFile] = useState<File | null>(null);
     const [pdfPreviewUrl, setPdfPreviewUrl] = useState<string | null>(null);
