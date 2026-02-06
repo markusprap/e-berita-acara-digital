@@ -13,6 +13,7 @@ interface Props {
 
 const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signatureDataUrl, setSignatureDataUrl }) => {
   const [showSignatureModal, setShowSignatureModal] = useState(false);
+  const [isKronologiFocused, setIsKronologiFocused] = useState(false);
   const modalSignatureRef = useRef<any>(null);
 
   const clearSignature = () => {
@@ -200,13 +201,35 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
             </div>
           </div>
         </div>
+
+        {/* Warning box that appears on focus */}
+        {isKronologiFocused && (
+          <div className="mb-3 p-3 bg-amber-50 border border-amber-300 rounded-lg animate-pulse">
+            <div className="flex items-start gap-2">
+              <span className="text-amber-500 text-lg">⚠️</span>
+              <div className="text-sm text-amber-800">
+                <p className="font-bold mb-1">Penting!</p>
+                <p>Tuliskan kronologi dengan <strong>sangat detail dan jelas</strong>, termasuk:</p>
+                <ul className="list-disc list-inside mt-1 space-y-0.5">
+                  <li>Waktu kejadian</li>
+                  <li>Urutan peristiwa</li>
+                  <li>Siapa yang terlibat</li>
+                  <li>Tindakan yang diambil</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        )}
+
         <textarea
           name="kronologi"
           value={data.kronologi}
           onChange={onChange}
+          onFocus={() => setIsKronologiFocused(true)}
+          onBlur={() => setIsKronologiFocused(false)}
           rows={5}
           placeholder="Tuliskan kronologi..."
-          className="w-full p-3 border border-black outline-none resize-none bg-gray-50/50 mb-4 font-medium leading-relaxed"
+          className={`w-full p-3 border outline-none resize-none bg-gray-50/50 mb-4 font-medium leading-relaxed transition-colors ${isKronologiFocused ? 'border-amber-400 ring-2 ring-amber-200' : 'border-black'}`}
         />
 
         <p className="italic">Demikian berita acara ini saya buat dengan sebenar benarnya, Terima kasih</p>
