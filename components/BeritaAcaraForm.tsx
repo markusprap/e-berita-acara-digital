@@ -194,13 +194,13 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
 
       <div className="mt-8">
         {/* Lokasi, Tanggal dan Waktu */}
-        <div className="mb-6 flex flex-wrap items-center gap-1 w-fit ml-auto md:ml-0">
+        <div className="mb-6 flex flex-wrap items-center gap-1 w-fit ml-auto md:ml-0 overflow-visible">
           <input
             type="text"
             name="lokasi"
             value={data.lokasi}
             onChange={onChange}
-            className="w-32 outline-none border-none bg-transparent text-right font-medium -mt-1"
+            className="w-32 outline-none border-none bg-transparent text-right font-medium leading-loose"
             placeholder="Lokasi"
           />
           <span className="font-medium">,</span>
@@ -214,7 +214,7 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
               onChange={onChange}
               className="opacity-0 absolute inset-0 w-full h-full cursor-pointer z-10"
             />
-            <span className="inline-block px-2 min-w-[100px] font-medium">
+            <span className="inline-block px-2 min-w-[100px] font-medium leading-loose">
               {formatDateDisplay(data.tanggalDibuat) || 'dd-mm-yyyy'}
             </span>
           </div>
