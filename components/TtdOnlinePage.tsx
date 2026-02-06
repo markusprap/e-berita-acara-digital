@@ -247,13 +247,43 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
 
                             {/* PDF Embed Preview */}
                             {pdfPreviewUrl && !signedPdfUrl && (
-                                <div className="border rounded-xl overflow-hidden">
-                                    <iframe
-                                        src={pdfPreviewUrl}
-                                        className="w-full h-96"
-                                        title="PDF Preview"
-                                    />
-                                </div>
+                                <>
+                                    {/* Desktop: iframe preview */}
+                                    <div className="hidden md:block border rounded-xl overflow-hidden">
+                                        <iframe
+                                            src={pdfPreviewUrl}
+                                            className="w-full h-96"
+                                            title="PDF Preview"
+                                        />
+                                    </div>
+                                    {/* Mobile: info card with open button */}
+                                    <div className="md:hidden border rounded-xl p-4 bg-gray-50">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                                                </svg>
+                                            </div>
+                                            <div className="flex-1">
+                                                <p className="font-medium text-gray-800">PDF siap untuk ditandatangani</p>
+                                                <p className="text-xs text-gray-500">Klik tombol di bawah untuk preview di tab baru</p>
+                                            </div>
+                                        </div>
+                                        <a
+                                            href={pdfPreviewUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block w-full py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-lg font-medium text-center transition-colors"
+                                        >
+                                            <span className="flex items-center justify-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                                Lihat PDF
+                                            </span>
+                                        </a>
+                                    </div>
+                                </>
                             )}
 
                             {/* Signed PDF Preview */}
@@ -265,11 +295,29 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
                                         </svg>
                                         <span className="font-medium text-green-800">PDF sudah ditandatangani!</span>
                                     </div>
+                                    {/* Desktop: iframe preview */}
                                     <iframe
                                         src={signedPdfUrl}
-                                        className="w-full h-96"
+                                        className="hidden md:block w-full h-96"
                                         title="Signed PDF Preview"
                                     />
+                                    {/* Mobile: info with open button */}
+                                    <div className="md:hidden p-4">
+                                        <p className="text-sm text-green-700 mb-3">PDF berhasil ditandatangani oleh <strong>{user.nama}</strong> sebagai <strong>{user.jabatan}</strong>.</p>
+                                        <a
+                                            href={signedPdfUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="block w-full py-2 bg-green-200 hover:bg-green-300 text-green-800 rounded-lg font-medium text-center transition-colors"
+                                        >
+                                            <span className="flex items-center justify-center gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                </svg>
+                                                Lihat Hasil PDF
+                                            </span>
+                                        </a>
+                                    </div>
                                 </div>
                             )}
 
