@@ -201,10 +201,21 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-4">
+        <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50 p-4 pb-20">
             <div className="max-w-4xl mx-auto">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-6">
+                {/* App Header */}
+                <div className="text-center mb-6">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-green-600 rounded-2xl shadow-lg mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                        </svg>
+                    </div>
+                    <h1 className="text-2xl md:text-3xl font-bold text-gray-800 mb-1">TTD Online</h1>
+                    <p className="text-gray-500 text-sm">Tanda Tangan Digital Berita Acara Variance</p>
+                </div>
+
+                {/* User Info & Navigation */}
+                <div className="flex items-center justify-between mb-6 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
                     <button
                         onClick={onBack}
                         className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors"
@@ -216,15 +227,15 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
                     </button>
 
                     <div className="text-right">
-                        <p className="text-sm text-gray-500">Login sebagai</p>
+                        <p className="text-xs text-gray-500">Login sebagai</p>
                         <p className="font-bold text-gray-800">{user.nama}</p>
-                        <p className="text-xs text-green-600">{user.jabatan}</p>
+                        <p className="text-xs text-green-600 font-medium">{user.jabatan}</p>
                     </div>
                 </div>
 
                 {/* Main Content */}
                 <div className="bg-white rounded-2xl shadow-xl p-6 border border-gray-100">
-                    <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">TTD Online - Berita Acara</h1>
+                    <h2 className="text-xl font-bold text-gray-800 mb-6 text-center">Upload & Tanda Tangani PDF</h2>
 
                     {/* Upload Section */}
                     {!pdfFile && (
@@ -452,6 +463,13 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
                     </div>
                 </div>
             )}
+
+            {/* Footer */}
+            <div className="mt-8 text-center text-gray-400 text-xs">
+                <a href="https://instagram.com/markusprap" target="_blank" rel="noopener noreferrer" className="hover:text-gray-600 transition-colors">
+                    Made with ☕ by Programmer Gen Z
+                </a>
+            </div>
         </div>
     );
 };
