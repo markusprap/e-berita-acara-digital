@@ -100,6 +100,10 @@ const App: React.FC = () => {
         useCORS: true,
         logging: false,
         windowWidth: 1280,
+        windowHeight: formRef.current?.scrollHeight || 1000,
+        // Ensure the height captures everything
+        scrollX: 0,
+        scrollY: 0,
         onclone: (clonedDoc) => {
           // Remove borders and background from signature boxes for the PDF
           const signatureBoxes = clonedDoc.querySelectorAll('.signature-box');
@@ -110,6 +114,43 @@ const App: React.FC = () => {
               box.style.backgroundColor = 'transparent';
             }
           });
+
+          // Ensure kronologi textarea expands to full height in the cloned document
+          // html2canvas struggles with textareas, so we replace it with a div
+          const kronologiTextarea = clonedDoc.querySelector('textarea[name="kronologi"]');
+          if (kronologiTextarea instanceof HTMLTextAreaElement) {
+            const parent = kronologiTextarea.parentElement;
+            if (parent) {
+              const div = clonedDoc.createElement('div');
+              div.textContent = kronologiTextarea.value;
+              div.className = kronologiTextarea.className;
+
+              // Copy styles explicitly for better reliability across browsers
+              const styles = window.getComputedStyle(kronologiTextarea);
+              div.style.fontFamily = styles.fontFamily;
+              div.style.fontSize = styles.fontSize;
+              div.style.fontWeight = styles.fontWeight;
+              div.style.lineHeight = styles.lineHeight;
+              div.style.padding = styles.padding;
+              div.style.height = 'auto';
+              div.style.minHeight = '150px';
+              div.style.width = '100%';
+              div.style.whiteSpace = 'pre-wrap';
+              div.style.wordBreak = 'break-word';
+              div.style.overflow = 'visible';
+              div.style.backgroundColor = 'white';
+              div.style.border = '1px solid black';
+              div.style.color = 'black';
+
+              parent.replaceChild(div, kronologiTextarea);
+            }
+          }
+
+          // Hide character counter in PDF
+          const counter = clonedDoc.querySelector('.absolute.bottom-2.right-2');
+          if (counter instanceof HTMLElement) {
+            counter.style.display = 'none';
+          }
         }
       });
 

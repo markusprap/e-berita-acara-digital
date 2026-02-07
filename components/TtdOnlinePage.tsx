@@ -79,15 +79,14 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
 
             await page.render(renderContext).promise;
 
-            // Set default signature position based on jabatan
-            const defaultPositions: Record<JabatanType, { x: number; y: number }> = {
-                'Area Supervisor': { x: scaledViewport.width * 0.35, y: scaledViewport.height * 0.75 },
-                'Area Manager': { x: scaledViewport.width * 0.65, y: scaledViewport.height * 0.75 },
-                'DBM ADM / BM': { x: scaledViewport.width * 0.10, y: scaledViewport.height * 0.85 },
-                'EDP Manager': { x: scaledViewport.width * 0.35, y: scaledViewport.height * 0.85 },
-                'Office Manager': { x: scaledViewport.width * 0.65, y: scaledViewport.height * 0.85 },
-            };
-            setSignaturePosition(defaultPositions[user.jabatan] || { x: scaledViewport.width * 0.5, y: scaledViewport.height * 0.8 });
+            await page.render(renderContext).promise;
+
+            // Use a simple default starting position (bottom-center)
+            // Precise coordinates are no longer needed thanks to drag-and-drop
+            setSignaturePosition({
+                x: scaledViewport.width * 0.4,
+                y: scaledViewport.height * 0.8
+            });
 
         } catch (error) {
             console.error('Error rendering PDF:', error);

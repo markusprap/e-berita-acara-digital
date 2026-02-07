@@ -212,16 +212,8 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
           </div>
         )}
 
-        {/* Kronologi input with FIXED height for consistent PDF signature positions */}
+        {/* Kronologi input - auto-resizing to content */}
         <div className="relative mb-4">
-          {/* Fixed height container - ensures PDF layout is always identical */}
-          <div
-            className={`w-full p-3 border bg-gray-50/50 font-medium leading-relaxed transition-colors h-[200px] overflow-y-auto whitespace-pre-wrap break-words ${isKronologiFocused ? 'border-amber-400 ring-2 ring-amber-200' : 'border-black'}`}
-            style={{ wordBreak: 'break-word' }}
-          >
-            {data.kronologi || <span className="text-gray-400">Tuliskan kronologi...</span>}
-          </div>
-          {/* Invisible textarea overlay for input */}
           <textarea
             ref={kronologiRef}
             name="kronologi"
@@ -229,9 +221,14 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
             onChange={onChange}
             onFocus={() => setIsKronologiFocused(true)}
             onBlur={() => setIsKronologiFocused(false)}
+            maxLength={580}
             placeholder="Tuliskan kronologi..."
-            className="absolute inset-0 w-full h-full p-3 opacity-0 cursor-text resize-none overflow-y-auto"
+            className={`w-full p-3 border font-medium leading-relaxed transition-colors resize-none overflow-hidden whitespace-pre-wrap break-words ${isKronologiFocused ? 'border-amber-400 ring-2 ring-amber-200 bg-white' : 'border-black bg-gray-50/50'}`}
+            style={{ minHeight: '150px' }}
           />
+          <div className="absolute bottom-2 right-2 text-xs font-mono text-gray-400 bg-white/80 px-1 rounded">
+            {data.kronologi.length}/580
+          </div>
         </div>
 
         <p className="italic">Demikian berita acara ini saya buat dengan sebenar benarnya, Terima kasih</p>
