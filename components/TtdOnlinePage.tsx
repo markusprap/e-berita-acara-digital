@@ -71,14 +71,17 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             const sigWidth = 100;
             const sigHeight = 45;
 
-            // Exact coordinates from PDF Coordinate Finder tool
-            // These are the center points of each signature box
-            const jabatanPositions: Record<JabatanType, { x: number; y: number }> = {
-                'Area Supervisor': { x: 245, y: 282 },
-                'Area Manager': { x: 425, y: 280 },
-                'DBM ADM / BM': { x: 63, y: 134 },
-                'EDP Manager': { x: 243, y: 134 },
-                'Office Manager': { x: 426, y: 134 },
+            // Signature positions using OFFSET FROM BOTTOM for consistency
+            // regardless of PDF height (which varies with kronologi length)
+            // Row 1 (Dibuat): at bottom + ~60% up
+            // Row 2 (Disetujui AS, AM): at bottom + ~35% up  
+            // Row 3 (Diketahui DBM, EDP, OM): at bottom + ~15% up
+            const jabatanPositions: Record<JabatanType, { x: number; offsetFromBottom: number }> = {
+                'Area Supervisor': { x: 245, offsetFromBottom: pageHeight * 0.33 },  // ~1/3 from bottom
+                'Area Manager': { x: 425, offsetFromBottom: pageHeight * 0.33 },
+                'DBM ADM / BM': { x: 63, offsetFromBottom: pageHeight * 0.15 },      // ~15% from bottom
+                'EDP Manager': { x: 243, offsetFromBottom: pageHeight * 0.15 },
+                'Office Manager': { x: 426, offsetFromBottom: pageHeight * 0.15 },
             };
 
             const position = jabatanPositions[user.jabatan];
@@ -86,7 +89,7 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             // Draw the signature on the PDF
             firstPage.drawImage(signatureImage, {
                 x: position.x,
-                y: position.y,
+                y: position.offsetFromBottom,
                 width: sigWidth,
                 height: sigHeight,
             });
@@ -97,7 +100,7 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
                 const nameText = `(${user.nama})`;
                 firstPage.drawText(nameText, {
                     x: position.x + 10,
-                    y: position.y - 12,
+                    y: position.offsetFromBottom - 12,
                     size: 8,
                     color: rgb(0, 0, 0),
                 });

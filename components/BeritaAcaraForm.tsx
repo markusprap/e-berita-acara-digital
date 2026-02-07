@@ -212,9 +212,9 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
           </div>
         )}
 
-        {/* Kronologi input with proper text wrapping for PDF */}
+        {/* Kronologi input with auto-expand for long text */}
         <div className="relative mb-4">
-          {/* Visible div that shows text with proper wrapping - this is what gets captured by html2canvas */}
+          {/* Visible div that auto-expands - text wraps properly for PDF capture */}
           <div
             className={`w-full p-3 border bg-gray-50/50 font-medium leading-relaxed transition-colors min-h-[120px] whitespace-pre-wrap break-words ${isKronologiFocused ? 'border-amber-400 ring-2 ring-amber-200' : 'border-black'}`}
             style={{ wordBreak: 'break-word' }}
@@ -231,7 +231,6 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
             onBlur={() => setIsKronologiFocused(false)}
             placeholder="Tuliskan kronologi..."
             className="absolute inset-0 w-full h-full p-3 opacity-0 cursor-text resize-none"
-            style={{ minHeight: '120px' }}
           />
         </div>
 
