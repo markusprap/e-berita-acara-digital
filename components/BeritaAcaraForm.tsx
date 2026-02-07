@@ -212,16 +212,28 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
           </div>
         )}
 
-        <textarea
-          ref={kronologiRef}
-          name="kronologi"
-          value={data.kronologi}
-          onChange={onChange}
-          onFocus={() => setIsKronologiFocused(true)}
-          onBlur={() => setIsKronologiFocused(false)}
-          placeholder="Tuliskan kronologi..."
-          className={`w-full p-3 border outline-none bg-gray-50/50 mb-4 font-medium leading-relaxed transition-colors min-h-[120px] overflow-hidden ${isKronologiFocused ? 'border-amber-400 ring-2 ring-amber-200' : 'border-black'}`}
-        />
+        {/* Kronologi input with proper text wrapping for PDF */}
+        <div className="relative mb-4">
+          {/* Visible div that shows text with proper wrapping - this is what gets captured by html2canvas */}
+          <div
+            className={`w-full p-3 border bg-gray-50/50 font-medium leading-relaxed transition-colors min-h-[120px] whitespace-pre-wrap break-words ${isKronologiFocused ? 'border-amber-400 ring-2 ring-amber-200' : 'border-black'}`}
+            style={{ wordBreak: 'break-word' }}
+          >
+            {data.kronologi || <span className="text-gray-400">Tuliskan kronologi...</span>}
+          </div>
+          {/* Invisible textarea overlay for input */}
+          <textarea
+            ref={kronologiRef}
+            name="kronologi"
+            value={data.kronologi}
+            onChange={onChange}
+            onFocus={() => setIsKronologiFocused(true)}
+            onBlur={() => setIsKronologiFocused(false)}
+            placeholder="Tuliskan kronologi..."
+            className="absolute inset-0 w-full h-full p-3 opacity-0 cursor-text resize-none"
+            style={{ minHeight: '120px' }}
+          />
+        </div>
 
         <p className="italic">Demikian berita acara ini saya buat dengan sebenar benarnya, Terima kasih</p>
       </div>
