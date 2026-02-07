@@ -49,33 +49,33 @@ const LandingPage: React.FC<Props> = ({ onSelectMenu }) => {
                         </div>
                     </button>
 
-                    {/* Menu 2: TTD Online - DISABLED */}
-                    <div
-                        className="group bg-white rounded-2xl shadow-lg p-6 text-left border border-gray-200 opacity-60 cursor-not-allowed relative"
+                    {/* Menu 2: TTD Online */}
+                    <button
+                        onClick={() => onSelectMenu('ttd-online')}
+                        className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 p-6 text-left border border-gray-100 hover:border-green-200 hover:-translate-y-1"
                     >
-                        {/* Coming Soon Badge */}
-                        <div className="absolute top-3 right-3 bg-orange-500 text-white text-xs font-bold px-2 py-1 rounded-full">
-                            Coming Soon
-                        </div>
                         <div className="flex items-start gap-4">
-                            <div className="flex-shrink-0 w-14 h-14 bg-gray-100 rounded-xl flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <div className="flex-shrink-0 w-14 h-14 bg-green-100 group-hover:bg-green-600 rounded-xl flex items-center justify-center transition-colors">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-green-600 group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                                 </svg>
                             </div>
                             <div className="flex-1">
-                                <h2 className="text-xl font-bold text-gray-400 mb-1">
+                                <h2 className="text-xl font-bold text-gray-800 mb-1 group-hover:text-green-600 transition-colors">
                                     TTD Online
                                 </h2>
-                                <p className="text-gray-400 text-sm">
+                                <p className="text-gray-500 text-sm">
                                     Tanda tangani BA yang sudah diajukan (khusus Atasan)
                                 </p>
-                                <div className="mt-4 flex items-center text-gray-400 text-sm font-medium">
-                                    <span>Segera Hadir</span>
+                                <div className="mt-4 flex items-center text-green-600 text-sm font-medium">
+                                    <span>Masuk</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                                    </svg>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </button>
                 </div>
 
                 {/* Footer */}
