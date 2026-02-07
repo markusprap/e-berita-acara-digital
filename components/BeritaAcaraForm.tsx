@@ -212,11 +212,11 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
           </div>
         )}
 
-        {/* Kronologi input with auto-expand for long text */}
+        {/* Kronologi input with FIXED height for consistent PDF signature positions */}
         <div className="relative mb-4">
-          {/* Visible div that auto-expands - text wraps properly for PDF capture */}
+          {/* Fixed height container - ensures PDF layout is always identical */}
           <div
-            className={`w-full p-3 border bg-gray-50/50 font-medium leading-relaxed transition-colors min-h-[120px] whitespace-pre-wrap break-words ${isKronologiFocused ? 'border-amber-400 ring-2 ring-amber-200' : 'border-black'}`}
+            className={`w-full p-3 border bg-gray-50/50 font-medium leading-relaxed transition-colors h-[200px] overflow-y-auto whitespace-pre-wrap break-words ${isKronologiFocused ? 'border-amber-400 ring-2 ring-amber-200' : 'border-black'}`}
             style={{ wordBreak: 'break-word' }}
           >
             {data.kronologi || <span className="text-gray-400">Tuliskan kronologi...</span>}
@@ -230,7 +230,7 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
             onFocus={() => setIsKronologiFocused(true)}
             onBlur={() => setIsKronologiFocused(false)}
             placeholder="Tuliskan kronologi..."
-            className="absolute inset-0 w-full h-full p-3 opacity-0 cursor-text resize-none"
+            className="absolute inset-0 w-full h-full p-3 opacity-0 cursor-text resize-none overflow-y-auto"
           />
         </div>
 
