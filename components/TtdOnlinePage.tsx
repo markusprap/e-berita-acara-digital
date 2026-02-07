@@ -74,11 +74,11 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             // Exact coordinates from PDF Coordinate Finder tool
             // These are the center points of each signature box
             const jabatanPositions: Record<JabatanType, { x: number; y: number }> = {
-                'Area Supervisor': { x: 249, y: 321 },
-                'Area Manager': { x: 431, y: 321 },
-                'DBM ADM / BM': { x: 68, y: 171 },
-                'EDP Manager': { x: 249, y: 173 },
-                'Office Manager': { x: 429, y: 173 },
+                'Area Supervisor': { x: 245, y: 282 },
+                'Area Manager': { x: 425, y: 280 },
+                'DBM ADM / BM': { x: 63, y: 134 },
+                'EDP Manager': { x: 243, y: 134 },
+                'Office Manager': { x: 426, y: 134 },
             };
 
             const position = jabatanPositions[user.jabatan];
