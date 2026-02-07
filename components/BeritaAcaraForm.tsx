@@ -15,6 +15,7 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
   const [showSignatureModal, setShowSignatureModal] = useState(false);
   const [isKronologiFocused, setIsKronologiFocused] = useState(false);
   const modalSignatureRef = useRef<any>(null);
+  const kronologiRef = useRef<HTMLTextAreaElement>(null);
 
   const clearSignature = () => {
     signatureRef.current?.clear();
@@ -52,6 +53,16 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
     }
     setShowSignatureModal(false);
   };
+
+  // Auto-resize kronologi textarea to fit content
+  useEffect(() => {
+    if (kronologiRef.current) {
+      // Reset height to auto to get the correct scrollHeight
+      kronologiRef.current.style.height = 'auto';
+      // Set height to scrollHeight to show all content
+      kronologiRef.current.style.height = `${kronologiRef.current.scrollHeight}px`;
+    }
+  }, [data.kronologi]);
 
   // Helper to format nominal with dots as thousands separator
   const handleNominalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -202,14 +213,14 @@ const BeritaAcaraForm: React.FC<Props> = ({ data, onChange, signatureRef, signat
         )}
 
         <textarea
+          ref={kronologiRef}
           name="kronologi"
           value={data.kronologi}
           onChange={onChange}
           onFocus={() => setIsKronologiFocused(true)}
           onBlur={() => setIsKronologiFocused(false)}
-          rows={5}
           placeholder="Tuliskan kronologi..."
-          className={`w-full p-3 border outline-none resize-none bg-gray-50/50 mb-4 font-medium leading-relaxed transition-colors ${isKronologiFocused ? 'border-amber-400 ring-2 ring-amber-200' : 'border-black'}`}
+          className={`w-full p-3 border outline-none bg-gray-50/50 mb-4 font-medium leading-relaxed transition-colors min-h-[120px] overflow-hidden ${isKronologiFocused ? 'border-amber-400 ring-2 ring-amber-200' : 'border-black'}`}
         />
 
         <p className="italic">Demikian berita acara ini saya buat dengan sebenar benarnya, Terima kasih</p>
