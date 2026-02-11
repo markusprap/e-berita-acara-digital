@@ -85,7 +85,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
             <div class="coord-list" id="coordList">
                 <div class="coord-item" id="coord-0">1. Area Supervisor: -</div>
                 <div class="coord-item" id="coord-1">2. Area Manager: -</div>
-                <div class="coord-item" id="coord-2">3. DBM ADM / BM: -</div>
+                <div class="coord-item" id="coord-2">3. DBM ADM / DBM OPR: -</div>
                 <div class="coord-item" id="coord-3">4. EDP Manager: -</div>
                 <div class="coord-item" id="coord-4">5. Office Manager: -</div>
             </div>
@@ -95,7 +95,7 @@ HTML_TEMPLATE = '''<!DOCTYPE html>
     </div>
 
     <script>
-        const jabatanList = ["Area Supervisor", "Area Manager", "DBM ADM / BM", "EDP Manager", "Office Manager"];
+        const jabatanList = ["Area Supervisor", "Area Manager", "DBM ADM / DBM OPR", "EDP Manager", "Office Manager"];
         const markerColors = ["#e94560", "#4ecca3", "#ffc107", "#2196f3", "#9c27b0"];
         let currentIdx = 0;
         let coordinates = {};

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { findByNik, NikEntry } from '../data/nikList';
 
-type JabatanType = 'Area Supervisor' | 'Area Manager' | 'EDP Manager' | 'Office Manager' | 'DBM ADM / BM';
+type JabatanType = 'Area Supervisor' | 'Area Manager' | 'EDP Manager' | 'Office Manager' | 'DBM ADM / DBM OPR';
 
 interface Props {
     onAuthenticated: (user: { nama: string; jabatan: JabatanType }) => void;
@@ -19,7 +19,7 @@ const JabatanSelector: React.FC<Props> = ({ onAuthenticated, onBack }) => {
         'Area Manager',
         'EDP Manager',
         'Office Manager',
-        'DBM ADM / BM',
+        'DBM ADM / DBM OPR',
     ];
 
     const requiresNikAuth = (jabatan: JabatanType): boolean => {

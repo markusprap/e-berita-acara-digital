@@ -9,7 +9,7 @@ pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
     import.meta.url
 ).toString();
 
-type JabatanType = 'Area Supervisor' | 'Area Manager' | 'EDP Manager' | 'Office Manager' | 'DBM ADM / BM';
+type JabatanType = 'Area Supervisor' | 'Area Manager' | 'EDP Manager' | 'Office Manager' | 'DBM ADM / DBM OPR';
 
 interface Props {
     user: { nama: string; jabatan: JabatanType };
@@ -385,7 +385,7 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             const jabatanCodes: Record<string, string> = {
                 'Area Supervisor': 'AS',
                 'Area Manager': 'AM',
-                'DBM ADM / BM': 'DBM',
+                'DBM ADM / DBM OPR': 'DBM',
                 'EDP Manager': 'EDP',
                 'Office Manager': 'OM',
             };
@@ -415,7 +415,7 @@ const TtdOnlinePage: React.FC<Props> = ({ user, onBack }) => {
             const jabatanCodes: Record<string, string> = {
                 'Area Supervisor': 'AS',
                 'Area Manager': 'AM',
-                'DBM ADM / BM': 'DBM',
+                'DBM ADM / DBM OPR': 'DBM',
                 'EDP Manager': 'EDP',
                 'Office Manager': 'OM',
             };

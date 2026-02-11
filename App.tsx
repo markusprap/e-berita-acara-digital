@@ -10,7 +10,7 @@ import JabatanSelector from './components/JabatanSelector';
 import TtdOnlinePage from './components/TtdOnlinePage';
 
 type PageType = 'landing' | 'buat-ba' | 'ttd-select' | 'ttd-online';
-type JabatanType = 'Area Supervisor' | 'Area Manager' | 'EDP Manager' | 'Office Manager' | 'DBM ADM / BM';
+type JabatanType = 'Area Supervisor' | 'Area Manager' | 'EDP Manager' | 'Office Manager' | 'DBM ADM / DBM OPR';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<PageType>('landing');
