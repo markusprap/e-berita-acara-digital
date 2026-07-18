@@ -29,9 +29,7 @@ const MemoModal: React.FC<Props> = ({ onClose }) => {
                         <li>
                             <span className="font-bold text-gray-900 block mb-1">Approval BA (PDF)</span>
                             <ul className="list-disc list-outside pl-4 mt-1 space-y-1 text-gray-600">
-                                <li><strong>Tim Toko, Area SPV, dan Area MGR</strong></li>
-                                <li>Jika Variance &lt; 300.000: <span className="text-blue-600 font-medium">Approval Ttd AM</span></li>
-                                <li>Jika Variance &gt; 300.000: <span className="text-blue-600 font-medium">Approval Ttd DBM OPR / DBM ADM</span></li>
+                                <li>Berita Acara wajib ditandatangani secara lengkap mulai dari <span className="text-blue-600 font-medium">AS, AM, OM, hingga DBM (DBM OPR / DBM ADM)</span>.</li>
                             </ul>
                         </li>
                         <li>
